@@ -1,31 +1,30 @@
 #  Crime Rate Prediction System
-# Predicting City-Level Crime Rates Across India Using NCRB Data
+Predicting City-Level Crime Rates Across India Using NCRB Data
 
-# Overview
+Overview
 
 This project is a **Machine Learning-based Crime Rate Prediction Web Application** that forecasts crime rates for crime against women in Indian cities using historical data from the **National Crime Records Bureau (NCRB)**. Users can input a state, city, and crime category through a web interface and receive a predicted crime rate along with a year-on-year trend indicator.
 
 # Machine Learning Pipeline
-
-# 1. Data Preprocessing
+ 1. Data Preprocessing
 - Loads and standardizes the NCRB CSV dataset
 - Filters to `crime_category == 'total'` only
 - Removes aggregate rows (e.g., "all india", "total cities")
 - Back-calculates city population from crime rate and incidence
 - Imputes missing population values using city-state group medians
 
-### 2. Feature Engineering
+ 2. Feature Engineering
 - **`crime_rate_lag1`** — Previous year's crime rate for the same city–crime combination
 - **`state_avg_crime_rate_lag1`** — Previous year's state-level average crime rate for that crime type
 
-### 3. Train-Test Split
+ 3. Train-Test Split
 Splits train and test data where train will be upto previous year and test data will be of current year.
 
-### 4. Models Evaluated
+ 4. Models Evaluated
 We trained 3 models - Ridge, Random Forest and Gradient Boosting out of which Ridge had the highest R2 score of 0.9040
 Therefore, Ridge Regression - Best model selected for deployment.
 
-### 5. Final Feature Set
+ 5. Final Feature Set
 city_encoded, state_encoded, crime_head_encoded,
 crime_rate_lag1, state_avg_crime_rate_lag1
 
@@ -47,38 +46,36 @@ Built with Flask (backend) and HTML/CSS (frontend).
 ### Trend Indicators
 | Trend | Condition |
 |-------|-----------|
-| Increasing Crime | Predicted rate > 2022 rate |
-| Decreasing Crime | Predicted rate < 2022 rate |
-| No Change | Predicted rate = 2022 rate |
+| Increasing Crime | Predicted rate > previous year |
+| Decreasing Crime | Predicted rate < previous year |
 
 # Installation and Setup
 
-### Prerequisites
+ Prerequisites
 - Python 3.8+
 - pip
 
-### Step 1 — Clone the Repository
+ Step 1 — Clone the Repository
 ```bash
 git clone https://github.com/your-username/crime-rate-prediction.git
 cd crime-rate-prediction
 ```
 
-### Step 2 — Install Dependencies
+Step 2 — Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
-
-### Step 3 — Run the Notebook (to generate model and encoder files)
+ Step 3 — Run the Notebook (to generate model and encoder files)
 Open and run all cells in `EPICS_FINAL.ipynb`. This will generate:
 - `final_crime_data_processed.pkl`
 - `encoders_epics.pkl`
 - `ridge_final_model_EPICS.pkl`
 
-### Step 4 — Start the Flask Server
+Step 4 — Start the Flask Server
 ```bash
 python app.py
 ```
 
-### Step 5 — Open in Browser
+Step 5 — Open in Browser
 ```
 http://127.0.0.1:5000
