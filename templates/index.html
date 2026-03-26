@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EPICS — Crime Rate Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+</head>
+<body class="home-body">
+
+  <!-- Background image layer -->
+  <div class="hero-bg"></div>
+  <!-- Dark overlay to make text readable -->
+  <div class="hero-overlay"></div>
+  <!-- Yellow tape stripe decoration -->
+  <div class="tape-stripe top-tape"></div>
+  <div class="tape-stripe bottom-tape"></div>
+
+  <header class="top-bar">
+    <div class="logo">SURAKSHA AI<span class="dot">.</span></div>
+    <div class="tagline-bar">Enhanced Predictive Intelligence for Crime Statistics</div>
+    <div class="year-badge">INDIA · 2026</div>
+  </header>
+
+  <main class="hero">
+
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Based on National Crime Records Bureau records — India
+        <span class="eyebrow-line"></span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line1">CRIME</span>
+        <span class="line2">RATE</span>
+        <span class="line3">PREDICTOR</span>
+      </h1>
+
+      <p class="hero-desc">
+        A Ridge Regression model trained on NCRB data to forecast city-level crime rates across India.
+        Select your state, city, and crime category to receive a predicted future crime rate
+        along with a comparative trend analysis from the previous year.
+      </p>
+
+      <a href="{{ url_for('predict') }}" class="cta-btn">
+        <span class="btn-icon">▶</span>
+        <span class="btn-text">BEGIN ANALYSIS</span>
+      </a>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="dossier-card">
+        <div class="dossier-header">
+          <span class="dossier-label">CASE FILE</span>
+
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">15</div>
+            <div class="stat-label">States &amp; UT</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">22+</div>
+            <div class="stat-label">Major Cities</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">24</div>
+            <div class="stat-label">Crime Types</div>
+          </div>
+          <div class="stat-card accent-card">
+            <div class="stat-num">Ridge</div>
+            <div class="stat-label">Model Used</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <section class="how-strip">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-text">Select <strong>State</strong></div>
+    </div>
+    <div class="step-divider">▸</div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-text">Select <strong>City</strong></div>
+    </div>
+    <div class="step-divider">▸</div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-text">Select <strong>Crime Category</strong></div>
+    </div>
+    <div class="step-divider">▸</div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-text">Get <strong>Prediction &amp; Trend</strong></div>
+    </div>
+  </section>
+
+
+</body>
+</html>

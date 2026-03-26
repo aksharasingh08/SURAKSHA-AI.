@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EPICS — Predict</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+</head>
+<body class="result-body">
+
+  <div class="tape-stripe top-tape"></div>
+
+  <header class="top-bar">
+    <a href="{{ url_for('index') }}" class="logo back-logo">← SURAKSHA AI<span class="dot">.</span></a>
+  </header>
+
+  <main class="predict-main">
+
+    <!-- ── Left: Form panel ─────────────────────────────────────────── -->
+    <div class="form-panel">
+      <div class="panel-eyebrow">Input Parameters</div>
+      <h2 class="panel-title">Configure<br/><em>Your Query</em></h2>
+
+      <form action="{{ url_for('predict') }}" method="POST" class="predict-form">
+
+        <div class="field-group">
+          <label class="field-label" for="state">
+          </label>
+          <div class="select-wrap">
+            <select name="state" id="state" required>
+              <option value="" disabled selected>— Select State —</option>
+              {% for s in states %}
+              <option value="{{ s }}" {% if state_input and s.title() == state_input %}selected{% endif %}>
+                {{ s.title() }}
+              </option>
+              {% endfor %}
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="city">
+          </label>
+          <div class="select-wrap">
+            <select name="city" id="city" required>
+              <option value="" disabled selected>— Select City —</option>
+              {% for c in cities %}
+              <option value="{{ c }}" {% if city_input and c.title() == city_input %}selected{% endif %}>
+                {{ c.title() }}
+              </option>
+              {% endfor %}
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="crime_head">
+          </label>
+          <div class="select-wrap">
+            <select name="crime_head" id="crime_head" required>
+              <option value="" disabled selected>— Select Crime Type —</option>
+              {% for cr in crimes %}
+              <option value="{{ cr }}" {% if crime_input and cr.title() == crime_input %}selected{% endif %}>
+                {{ cr.title() }}
+              </option>
+              {% endfor %}
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <button type="submit" class="predict-btn">
+          <span class="btn-icon">▶</span>
+          <span class="btn-text">RUN ANALYSIS</span>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ── Right: Result panel ──────────────────────────────────────── -->
+    <div class="result-panel">
+      <div class="panel-eyebrow">Prediction Output</div>
+      <h2 class="panel-title">Analysis<br/><em>Report</em></h2>
+
+      {% if prediction is not none %}
+
+      <div class="result-card">
+
+
+        <div class="result-meta">
+          <div class="meta-row">
+            <span class="meta-key">State</span>
+            <span class="meta-val">{{ state_input }}</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">City</span>
+            <span class="meta-val">{{ city_input }}</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Crime Type</span>
+            <span class="meta-val">{{ crime_input }}</span>
+          </div>
+        </div>
+
+        <div class="result-number-wrap">
+          <div class="result-label">Predicted Crime Rate</div>
+          <div class="result-number">{{ prediction }}</div>
+          <div class="result-unit">incidents per 100,000 population</div>
+        </div>
+
+        <div class="trend-wrap trend-{{ trend_class }}">
+          <div class="trend-icon">
+            {% if trend_class == 'up' %}↑{% elif trend_class == 'down' %}↓{% else %}→{% endif %}
+          </div>
+          <div class="trend-info">
+            <div class="trend-text">{{ trend }}</div>
+            <div class="trend-sub">vs. previous year</div>
+          </div>
+        </div>
+      </div>
+
+      {% elif error %}
+
+      <div class="error-card">
+        <div class="error-icon">✕</div>
+        <div class="error-text">{{ error }}</div>
+        <div class="error-sub">Please revise your selection and try again.</div>
+      </div>
+
+      {% else %}
+
+      <div class="idle-card">
+        <div class="idle-tape">AWAITING INPUT</div>
+        <div class="idle-graphic">
+          <div class="idle-circle c1"></div>
+          <div class="idle-circle c2"></div>
+          <div class="idle-circle c3"></div>
+        </div>
+        <div class="idle-text">
+          Configure the parameters on the left<br/>and run the analysis to see results here.
+        </div>
+
+      </div>
+
+      {% endif %}
+
+    </div>
+
+  </main>
+
+
+</body>
+</html>
